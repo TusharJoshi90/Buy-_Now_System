@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Details</title>
+    <style>   
+        body {
+            font-family: Arial, sans-serif;
+            background: url("PAY.jpg") no-repeat center center fixed; /* Replace with your image path */
+    background-size: cover;
+    text-align: center;
+                   height: 100vh;
+            margin: 0;
+        }
+     
+
+        .container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for readability */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+        .container {
+            display: flex;
+            gap: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container, .order-container {
+            width: 300px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .order-container {
+            border-left: 1px solid #ccc;
+            padding-left: 20px;
+        }
+        .cart-items {
+            list-style: none;
+            padding: 0;
+        }
+        .cart-items li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Billing Details</h2>
+            <form id="billingForm" action="submit_billing.php" method="POST">
+
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="mobile">Mobile No.:</label>
+                <input type="tel" id="mobile" name="mobile" required>
+                
+                <fieldset>
+                    <legend>Address</legend>
+                    <label for="landmark">Landmark:</label>
+                    <input type="text" id="landmark" name="landmark">
+                    
+                    <label for="pincode">Pincode:</label>
+                    <input type="text" id="pincode" name="pincode" required>
+                    
+                    <label for="city">Town/City:</label>
+                    <input type="text" id="city" name="city" required>
+                    
+                    <label for="state">State:</label>
+                    <select id="state" name="state" required>
+                        <option value="">Select State</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                    </select>
+                </fieldset>
+                
+                <button type="submit">Pay Now</button>
+            </form>
+        </div>
+        
+        <div class="order-container">
+            <h2>Your Order</h2>
+            <ul class="cart-items" id="cartItems"></ul>
+            <hr>
+            <p><strong>Total: ₹<span id="cartTotal">0.00</span></strong></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            let cartItemsContainer = document.getElementById("cartItems");
+            let totalElement = document.getElementById("cartTotal");
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+            } else {
+                let total = 0;
+                cart.forEach(item => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `<strong>${item.name}</strong> (x${item.quantity}) - ₹${item.price * item.quantity}`;
+                    cartItemsContainer.appendChild(li);
+                    total += item.price * item.quantity;
+                });
+                totalElement.textContent = total.toFixed(2);
+            }
+
+            document.getElementById("billingForm").addEventListener("submit", function(e) {
+                e.preventDefault();
+                if (cart.length === 0) {
+                    alert("Your cart is empty. Please add items before proceeding to payment.");
+                } else {
+                    alert("Redirecting to payment...");
+                    localStorage.removeItem("cart");
+                    window.location.href = "payment.html"; // Redirect to payment page
+                }
+            });
+        });
+    </script>
+</body>
+</html>

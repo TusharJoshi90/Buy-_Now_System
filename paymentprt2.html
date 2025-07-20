@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .order-summary {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+        }
+        .confirm-btn {
+            background: green;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .confirm-btn:hover {
+            background: darkgreen;
+            transform: scale(1.05);
+        }
+        .cancel-btn {
+            background: red;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .cancel-btn:hover {
+            background: darkred;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Payment Confirmation</h2>
+        <div class="order-summary">
+            <p><strong>Order ID:</strong> #123456</p>
+            <p><strong>Amount:</strong> $50.00</p>
+            <p><strong>Payment Method:</strong> <span id="paymentMethod">Not Selected</span></p>
+        </div>
+        <button class="confirm-btn" onclick="processPayment()">Confirm & Pay</button>
+        <button class="cancel-btn" onclick="cancelPayment()">Cancel Payment</button>
+    </div>
+
+    <script>
+        // Simulating retrieval of selected payment method
+        const selectedGateway = localStorage.getItem('selectedGateway') || 'Not Selected';
+        document.getElementById('paymentMethod').innerText = selectedGateway;
+        
+        function processPayment() {
+            alert("Processing payment through " + selectedGateway);
+            window.location.href = "payment-success.html";
+        }
+        
+        function cancelPayment() {
+            alert("Payment Cancelled");
+            window.location.href = "index.html";
+        }
+        localStorage.setItem("selectedPaymentMethod", "Google Pay");
+window.location.href = "confirm.html";
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header>
+        <h1>Your Cart</h1>
+        <a href="index.html">← Back to Menu</a>
+    </header>
+    
+    <section class="cart-container">
+        <h2>Selected Items</h2>
+        <div id="cartItems"></div>
+        <h3>Total: ₹<span id="cartTotal">0.00</span></h3>
+
+        <!-- Pay Now & Clear Cart Buttons -->
+        <div class="cart-buttons">
+            <button id="payNow">Pay Now</button>
+            <button id="clearCart">Clear Cart</button>
+        </div>
+    </section>
+    
+    <script src="cart.js"></script>
+</body>
+</html>

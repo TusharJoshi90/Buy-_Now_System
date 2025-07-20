@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        
+        body {
+    font-family: Arial, sans-serif;
+    background: url("111.jpg") no-repeat center center fixed; /* Replace with your image file */
+    background-size: cover;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for readability */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+        h2 {
+            margin-bottom: 20px;
+        }
+        .payment-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            position: relative;
+        }
+        .payment-option:hover {
+            background: #e9ecef;
+            transform: scale(1.02);
+        }
+        .payment-option.selected {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        .payment-option img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+        .payment-option span {
+            flex-grow: 1;
+            text-align: left;
+            font-size: 16px;
+        }
+        .tick {
+            font-size: 20px;
+            color: #28a745;
+            font-weight: bold;
+            display: none;
+        }
+        .payment-option.selected .tick {
+            display: block;
+        }
+        .pay-now {
+            background: green;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .pay-now:hover {
+            background: darkgreen;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select Payment Method</h2>
+        <div class="payment-option" onclick="payWith(this, 'PhonePe')">
+            <img src="phonepay.jpg" alt="PhonePe"> 
+            <span>PhonePe</span>
+            <span class="tick">✔</span>
+        </div>
+        <div class="payment-option" onclick="payWith(this, 'Google Pay')">
+            <img src="google.jpg" alt="Google Pay"> 
+            <span>Google Pay</span>
+            <span class="tick">✔</span>
+        </div>
+        <div class="payment-option" onclick="payWith(this, 'Paytm')">
+            <img src="paytm.jpg" alt="Paytm"> 
+            <span>Paytm</span>
+            <span class="tick">✔</span>
+        </div>
+        <div class="payment-option" onclick="payWith(this, 'Credit/Debit Card')">
+            <img src="mster.jpg" alt="Card"> 
+            <span>Credit/Debit Card</span>
+            <span class="tick">✔</span>
+        </div>
+        <div class="payment-option" onclick="payWith(this, 'Net Banking')">
+            <img src="netbank.jpg" alt="Net Banking"> 
+            <span>Net Banking</span>
+            <span class="tick">✔</span>
+        </div>
+        <button class="pay-now" onclick="confirmAndRedirect()">Pay Now</button>
+    </div>
+
+    <script>
+        let selectedOption = null;
+
+        function payWith(element, method) {
+            if (selectedOption) {
+                selectedOption.classList.remove("selected");
+            }
+            element.classList.add("selected");
+            selectedOption = element;
+        }
+        
+        function confirmPayment() {
+            if (!selectedOption) {
+                alert("Please select a payment method before proceeding.");
+                return;
+            }
+            
+        }
+        const selectedPaymentMethod = localStorage.getItem("selectedPaymentMethod");
+        if (selectedPaymentMethod) {
+            document.getElementById("selected-method").textContent = selectedPaymentMethod;
+        }
+
+        function confirmAndRedirect() {
+            if (!selectedPaymentMethod) {
+                alert("No payment method selected!");
+                return;
+            }
+
+            // Simulate payment gateway redirection based on selection
+            switch (selectedPaymentMethod) {
+                case "PhonePe":
+                    window.location.href = "https://www.phonepe.com/";
+                    break;
+                case "Google Pay":
+                    window.location.href = "https://pay.google.com/";
+                    break;
+                case "Paytm":
+                    window.location.href = "https://paytm.com/";
+                    break;
+                case "Credit/Debit Card":
+                    window.location.href = "https://www.mastercard.com/";
+                    break;
+                case "Net Banking":
+                    window.location.href = "https://www.netbanking.com/";
+                    break;
+                default:
+                    alert("Invalid payment method selected!");
+            }
+        }
+
+    
+        
+    </script>
+</body>
+</html>
